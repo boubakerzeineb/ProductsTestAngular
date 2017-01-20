@@ -1,0 +1,80 @@
+<span>
+    <div  style="float:left;width:50%">
+        <h1>Product list</h1>
+    <table style="width:90%">
+        <tr>
+            <td colspan="1">Category : <hr></td>
+            <td colspan="4">
+                <select ng-model="search.category" ng-change="filterCategories()">
+                    <option value="">All</option>
+                    <option ng-repeat="category in categories">{{category}}</option>
+                </select>
+                <hr>
+            </td>
+            <td colspan="1">Name : <hr></td>
+            <td colspan="4">
+                <input ng-model="search.name" ng-change="filterCategories()"/>
+                <hr>
+            </td>
+        </tr>
+    </table>
+    <table style="width:90%">
+        <tr ng-repeat="product in products" style="cursor:hand" ng-click="selectProduct(product,$index)">
+            <td>{{product.name}}</td>
+            <td ng-if="product.onPromotion">
+                promotion <b>{{product.promotion}}%</b>
+            </td>
+            <td ng-if="product.onPromotion">
+                <span style="text-decoration: line-through;color:red">      {{product.price}}
+                </span>
+            </td>
+            <td ng-if="product.onPromotion">
+                <b>{{product.price | promotion:product.promotion}}</b>
+            </td>
+            <td ng-if="!product.onPromotion" colspan="3" style="text-align:right"><b>{{product.price}}</b></td>
+            <td>TND</td>
+        </tr>
+    </table>
+    </div>
+    <div style="float:right;width:50%">
+        <h1>Single product</h1>
+        <table>
+            <tr>
+                <td>Id : </td>
+                <td><b>{{product.id}}</b></td>
+            </tr>
+            <tr>
+                <td>Name : </td>
+                <td><input ng-model="product.name"></td>
+            </tr>
+            <tr>
+                <td>Category : <br><b>(ComboBox directive)</b></td>
+                <td>
+                    <combo-box ng-model="product.category" values="categories"></combo-box>
+                </td>
+            </tr>
+            <tr>
+                <td>Price : </td>
+                <td><input ng-model="product.price"></td>
+            </tr>
+            <tr>
+                <td>Promotion : </td>
+                <td><input ng-model="product.promotion"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <button ng-if="!product.onPromotion" ng-click="enablePromotion()">Promotion Disabled</button>
+                    <button ng-if="product.onPromotion" ng-click="disablePromotion()">Promotion Enabled</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <button ng-click="save()">Save</button>
+                    <button ng-click="reset()">reset</button>
+                    <button ng-if="product.id" ng-click="delete()">Delete</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</span>

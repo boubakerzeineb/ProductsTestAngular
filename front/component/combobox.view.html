@@ -1,0 +1,13 @@
+<span>
+    <span ng-show="adding">
+        <input ng-model="singleValue">
+        <button ng-click="validate()">Validate</button>
+    </span>
+    <span ng-show="!adding">
+        <select ng-model="model">
+            <option ng-repeat="option in options">{{option}}</option>
+        </select>
+        <span ng-click="add()">Click to Add</span>
+    </span>
+    
+</span>
